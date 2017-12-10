@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 import pickle
 
 from thinc.misc import Residual
@@ -44,8 +44,8 @@ def main(use_gpu=False, nb_epoch=50):
         Model.Ops = CupyOps
     train, test = datasets.imdb()
     print("Load data")
-    train_X, train_y = zip(*train)
-    test_X, test_y = zip(*test)
+    train_X, train_y = list(zip(*train))
+    test_X, test_y = list(zip(*test))
     train_y = to_categorical(train_y, nb_classes=2)
     test_y = to_categorical(test_y, nb_classes=2)
 

@@ -100,7 +100,7 @@ def train(model, train_words, train_tags, n_epoch=5):
     with model[0].begin_training(train_words, train_tags) as (trainer, optimizer):
         losses = [0.]
         def print_loss():
-            print(len(losses), losses[-1])
+            print((len(losses), losses[-1]))
         trainer.nb_epoch = n_epoch
         trainer.batch_size = 4
         trainer.each_epoch.append(print_loss)

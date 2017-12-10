@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from __future__ import print_function
+
 import io
 import os
 import subprocess
@@ -161,7 +161,7 @@ def locate_cuda():
     cudaconfig = {'home':home, 'nvcc':nvcc,
                   'include': os.path.join(home, 'include'),
                   'lib64': os.path.join(home, 'lib64')}
-    for k, v in cudaconfig.items():
+    for k, v in list(cudaconfig.items()):
         if not os.path.exists(v):
             print('Warning: The CUDA %s path could not be located in %s' % (k, v))
             return None

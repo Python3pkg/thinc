@@ -5,7 +5,7 @@
 3. Pass the path to this file to this script
 '''
 
-from __future__ import absolute_import
+
 
 import sys
 import thinc.linear.avgtron

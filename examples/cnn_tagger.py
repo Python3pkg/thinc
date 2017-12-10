@@ -1,4 +1,4 @@
-from __future__ import print_function, division
+
 import plac
 import numpy
 import time
@@ -76,7 +76,7 @@ def track_progress(**context):
 
 
 def preprocess(ops, get_feats, data, nr_tag, npad=4):
-    Xs, ys = zip(*data)
+    Xs, ys = list(zip(*data))
     Xs = [ops.asarray(x) for x in get_feats(Xs)]
     ys = [ops.asarray(to_categorical(y, nb_classes=nr_tag)) for y in ys]
     return Xs, ys

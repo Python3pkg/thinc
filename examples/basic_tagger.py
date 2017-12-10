@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 from thinc.i2v.hash_embed import HashEmbed
 from thinc.v2v import Model, ReLu, Softmax
 
@@ -25,8 +25,8 @@ def main(width=32, nr_vector=1000):
                     ReLu(width, width),
                     Softmax(nr_tag, width)))
 
-    train_X, train_y = zip(*train_data)
-    dev_X, dev_y = zip(*check_data)
+    train_X, train_y = list(zip(*train_data))
+    dev_X, dev_y = list(zip(*check_data))
     train_y = [to_categorical(y, nb_classes=nr_tag) for y in train_y]
     dev_y = [to_categorical(y, nb_classes=nr_tag) for y in dev_y]
     with model.begin_training(train_X, train_y) as (trainer, optimizer):

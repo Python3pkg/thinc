@@ -1,12 +1,12 @@
 # coding: utf-8
-from __future__ import unicode_literals, print_function
+
 
 from fabric.api import task, local, run, lcd, cd, env
 from os.path import exists as file_exists
 from fabtools.python import virtualenv
 
 from . import eg
-from _util import PWD, VENV_DIR
+from ._util import PWD, VENV_DIR
 
 
 @task

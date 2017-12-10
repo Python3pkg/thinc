@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 import tqdm
 import pickle
 
@@ -70,8 +70,8 @@ def main(use_gpu=True, nb_epoch=100):
         Model.Ops = CupyOps
     train, test = datasets.imdb()
     print("Load data")
-    train_X, train_y = zip(*train)
-    test_X, test_y = zip(*test)
+    train_X, train_y = list(zip(*train))
+    test_X, test_y = list(zip(*test))
     train_y = Model.ops.asarray(to_categorical(train_y, nb_classes=2))
     test_y = Model.ops.asarray(to_categorical(test_y, nb_classes=2))
     

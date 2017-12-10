@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 import plac
 import dill as pickle
 from tqdm import tqdm

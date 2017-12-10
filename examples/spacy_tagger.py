@@ -1,4 +1,4 @@
-from __future__ import print_function, unicode_literals, division
+
 from timeit import default_timer as timer
 from cytoolz import curry, concat
 from thinc.extra import datasets
@@ -32,7 +32,7 @@ import numpy.linalg
 import plac
 
 try:
-    import cPickle as pickle
+    import pickle as pickle
 except ImportError:
     import pickle
 
@@ -130,7 +130,7 @@ def spacy_preprocess(nlp, train_sents, dev_sents):
             oovs += sum(not w.has_vector for w in X[-1])
             n += len(X[-1])
         print(oovs, n, oovs / n)
-        return zip(X, y)
+        return list(zip(X, y))
     return _encode(train_sents), _encode(dev_sents), len(tagmap)
 
 
@@ -165,10 +165,10 @@ def main(nr_epoch=20, nr_sent=0, width=128, depth=3, max_batch_size=32, dropout=
         )
 
     print("Preparing training")
-    dev_X, dev_y = zip(*dev_sents)
+    dev_X, dev_y = list(zip(*dev_sents))
     dev_y = model.ops.flatten(dev_y)
     dev_y = to_categorical(dev_y, nb_classes=50)
-    train_X, train_y = zip(*train_sents)
+    train_X, train_y = list(zip(*train_sents))
     with model.begin_training(train_X, train_y) as (trainer, optimizer):
         trainer.nb_epoch = nr_epoch
         trainer.dropout = dropout

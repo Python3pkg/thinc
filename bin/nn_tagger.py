@@ -67,7 +67,7 @@ def main(train_loc, eval_loc):
     n_epochs = 2000
     random.seed(0)
 
-    print "... reading the data"
+    print("... reading the data")
     word_map = defaultdict(lambda: len(word_map)+1)
     tag_map = defaultdict(lambda: len(tag_map)+1)
     train_sents = list(read_data(train_loc, word_map, tag_map))
@@ -80,7 +80,7 @@ def main(train_loc, eval_loc):
                     [EmbeddingTable(len(word_map), word_vec_length, initializer),
                      EmbeddingTable(len(tag_map), tag_vec_length, initializer)])
 
-    print len(input_layer)
+    print(len(input_layer))
 
     train_model, evaluate_model = compile_theano_model(
                                     len(tag_map)+1,
@@ -91,7 +91,7 @@ def main(train_loc, eval_loc):
 
     x = numpy.ndarray((len(input_layer),), dtype='f')
 
-    print '... training'
+    print('... training')
     n_eg = 0
     examples = list(iter_examples(train_sents))
     for epoch in range(1, n_epochs+1):
@@ -109,11 +109,11 @@ def main(train_loc, eval_loc):
             n_true += guess[0] == gold_tag
             n_seen += 1
         if n_seen:
-            print epoch, float(n_true) / n_seen
+            print(epoch, float(n_true) / n_seen)
         random.shuffle(examples)
         eta *= 0.96
         if not epoch % 10:
-            print 'Dev', score_model(evaluate_model, input_layer, dev_examples)
+            print('Dev', score_model(evaluate_model, input_layer, dev_examples))
 
 
 

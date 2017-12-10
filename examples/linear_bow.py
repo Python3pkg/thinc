@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 from thinc.linear.linear import LinearModel
 from thinc.neural._classes.model import Model
 from thinc.extra import datasets
@@ -16,8 +16,8 @@ def preprocess(ops, keys):
 
 def main():
     train, dev = datasets.imdb()
-    train_X, train_y = zip(*train)
-    dev_X, dev_y = zip(*dev)
+    train_X, train_y = list(zip(*train))
+    dev_X, dev_y = list(zip(*dev))
     model = LinearModel(2)
     train_y = to_categorical(train_y, nb_classes=2)
     dev_y = to_categorical(dev_y, nb_classes=2)

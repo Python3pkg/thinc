@@ -1,4 +1,4 @@
-from __future__ import print_function, division
+
 import sys
 import plac
 import numpy
@@ -37,11 +37,11 @@ def twitter_ner():
     train_X, train_y = _read_conll_ner((loc / 'train').open(), tagmap)
     dev_X, dev_y = _read_conll_ner((loc / 'dev').open(), tagmap)
     print(tagmap)
-    return zip(train_X, train_y), zip(dev_X, dev_y), tagmap
+    return list(zip(train_X, train_y)), list(zip(dev_X, dev_y)), tagmap
 
 
 def print_dev_sentences(model, orig_words, gold_tags, coded_words, tag_map):
-    reverse_tag_map = {id_: tag for tag, id_ in tag_map.items()}
+    reverse_tag_map = {id_: tag for tag, id_ in list(tag_map.items())}
     scores = model(coded_words)
     i = 0
     for sent_words, sent_gold in zip(orig_words, gold_tags):
@@ -136,7 +136,7 @@ def track_progress(**context):
 
 
 def preprocess(ops, get_feats, data, nr_tag):
-    Xs, ys = zip(*data)
+    Xs, ys = list(zip(*data))
     Xs = [ops.asarray(x) for x in get_feats(Xs)]
     ys = [ops.asarray(to_categorical(y, nb_classes=nr_tag)) for y in ys]
     return Xs, ys
@@ -173,7 +173,7 @@ def main(width=300, depth=4, vector_length=64,
         Model.ops = CupyOps()
         Model.ops.device = device
     train_data, check_data, tag_map = twitter_ner()
-    dev_words, dev_tags = zip(*check_data)
+    dev_words, dev_tags = list(zip(*check_data))
     nr_tag = len(tag_map)
 
     extracter = FeatureExtracter('en', attrs=[ORTH, LOWER, SHAPE, PREFIX, SUFFIX])

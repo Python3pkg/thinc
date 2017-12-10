@@ -30,7 +30,7 @@ Note: this script does not check any of the dependent C libraries; it only
 operates on the Cython .pyx files.
 """
 
-from __future__ import division, print_function, absolute_import
+
 
 import os
 import re
@@ -174,7 +174,7 @@ def find_process_files(root_dir):
             in_file = os.path.join(cur_dir, filename + ".in")
             if filename.endswith('.pyx') and os.path.isfile(in_file):
                 continue
-            for fromext, function in rules.items():
+            for fromext, function in list(rules.items()):
                 if filename.endswith(fromext):
                     toext = ".cpp"
                     # with open(os.path.join(cur_dir, filename), 'rb') as f:
